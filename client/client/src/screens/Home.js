@@ -81,9 +81,10 @@ const Home=()=>{
        
     </div>
    <div className=" m-5">
-   <Skeleton />
-<Skeleton animation="wave" />
-<Skeleton animation={false} />
+   <Skeleton variant="circular" width={40} height={40} />
+        <Skeleton variant="rectangular" width={210} height={60} />
+        <br />
+         <Skeleton variant="rectangular" width={210} height={60} />
       </div>
    <Footer/>
     </>)
