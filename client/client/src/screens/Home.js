@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import Card from '../components/Card'
 import Skeleton from '@mui/material/Skeleton';
 
-import Corousel from '../components/Corousel'
+
 const Home=()=>{
     const [cat,setcat]=useState([])
     const [food,setfood]=useState([])

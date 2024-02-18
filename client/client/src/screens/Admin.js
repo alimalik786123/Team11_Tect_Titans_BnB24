@@ -10,35 +10,36 @@ const Admin = () => {
     const [cat, setcat] = useState([])
     const [food, setfood] = useState([])
     const [search, setsearch] = useState('')
+    const [data1, setdata]=useState([])
     const datafood = async () => {
-        let data = await fetch('http://localhost:8080/foodData', {
+        let data = await fetch('http://localhost:8080/getcompany', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             }
         })
         data = await data.json()
-        // console.log()
-        setfood(data[0])
-        setcat(data[1])
+        setdata(data)
+        console.log(data,"datafrom")
+        
 
 
     }
-    console.log(food);
-    console.log(cat);
+    //console.log(data1.data[0].companyname);
+    console.log(data1.data?.map((data)=>{return data}));
     useEffect(() => {
         datafood()
-    }, [])
+    },[])
     return (<><Navadmin />
         <div className="container">
             <Grid className='mt-3' container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                 {
-                    cat !== [] ? cat.map((data1) => {
+                    data1.data !== [] ? data1.data?.map((data2) => {
                         return (
 
                             <Grid className='mb-1' item xs={4}>
-
-                                <div className=''><Card data3={data1} /></div>
+                               {console.log(data2)}
+                                <div className=''><Card data3={data2} /></div>
                             </Grid>
                         
                         )

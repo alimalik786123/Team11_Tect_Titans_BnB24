@@ -1,102 +1,112 @@
-import React from 'react'
-import { FormControl, FormLabel,Button, Input, InputGroup, InputRightElement, VStack,useToast } from '@chakra-ui/react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-const Login = () => {
-    const [show,setshow]=useState(false)
-   
-    const [email,setemail]=useState('')
-    const [password,setpassword]=useState('')
-    const [loading,setloading]=useState('')
-    const toast=useToast()
-    let redirect=useNavigate()
-    const invert=()=>{
-        setshow(!show)
-    }
-    const invert1=()=>{
-        setshow(!show)
-    }
-    const submit=async(e)=>{
-      setloading(true)
-      console.log(email,password);
-      if(!email || !password){
-        toast({ 
-          title: "Please enter all the field",
-          status: "warning",
-          duration: 5000,
-          isClosable: true,
-          position: "top",
-        });
-        // alert("failed")
-        setloading(false)
-        return
-      }
-      else{
-        e.preventDefault()
-          const response= await fetch("https://mern-chat-app-server-nine.vercel.app/login",{
-           method:'POST',
-           headers:{
-            'Content-Type':'application/json',
-           },
-           body:JSON.stringify({email:email,password:password})
-        })
-        const res=await response.json()
-        const userdata=JSON.stringify(res)
-        console.log(res,'login data');
-        window.localStorage.setItem("data",res._id)
-        window.localStorage.setItem("signin",res._id)
-        window.localStorage.setItem('userdata',userdata)
- 
-        redirect("/chat")
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-        
-      }
-    }
+function Copyright(props) {
   return (
-    <VStack spacing='5px'>
-       
-          <FormControl>
-            <FormLabel> Email </FormLabel>
-                <Input
-                 placeholder='Enter Email'
-                 onChange={(e)=>setemail(e.target.value)}
-                 marginBottom='15px'
-                 isRequired
-                 type={'email'}
-                ></Input>
-          </FormControl>
-          
-          <FormControl>
-            <FormLabel> Password </FormLabel>
-            <InputGroup>
-
-                <Input
-                 placeholder='Enter Password'
-                 onChange={(e)=>setpassword(e.target.value)}
-                 marginBottom='15px'
-                 isRequired
-                 type={show?'text':'password'}
-
-                ></Input>
-                <InputRightElement width='4.5rem'> 
-                  <Button h='1.75rem' size='sm' onClick={invert1} >
-                  {show?"Hide":"Show"}
-                  </Button>
-                </InputRightElement>
-                </InputGroup>
-          </FormControl>
-          
-          <Button colorScheme='blue' w={'100%'} variant='outline' onClick={submit}>
-    Login
-  </Button>
-  <Button colorScheme='red' w={'100%'} variant='outline'>
-    Guest user 
-  </Button>
-           
-           
-        
-    </VStack >
-  )
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
 }
 
-export default Login
+// TODO remove, this demo shouldn't need to reset the theme.
+
+const defaultTheme = createTheme();
+
+export default function SignIn() {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get('email'),
+      password: data.get('password'),
+    });
+  };
+
+  return (
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        <Copyright sx={{ mt: 8, mb: 4 }} />
+      </Container>
+    </ThemeProvider>
+  );
+}

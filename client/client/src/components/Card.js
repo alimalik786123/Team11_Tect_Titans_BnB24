@@ -14,7 +14,7 @@ const Card=(props)=>{
     
      </div>
      <hr />
-     <Button variant="contained" startIcon={<AddShoppingCartIcon />}>Add</Button>
+     <Button variant="contained" startIcon={<AddShoppingCartIcon />}>Contained</Button>
 
      {/* <button className="btn btn-success justify-center ms-2"> <i class="bi bi-cart-plus"></i>
 add cart</button> */}

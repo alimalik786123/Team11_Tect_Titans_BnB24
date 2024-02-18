@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import "./product.css"
 import Button from '@mui/material/Button';
 
 import { Link, useNavigate } from "react-router-dom"
@@ -74,7 +74,7 @@ const Details=()=>{
     return (<><>
         <nav class="navbar navbar-expand-lg bg-white">
           <div class="container-fluid">
-            <Link class="navbar-brand fs-1" to="/sfae">ADMIN</Link>
+            <Link class="navbar-brand fs-1" to="/sfae">SELLER</Link>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -123,33 +123,17 @@ const Details=()=>{
 
 
     {/* {----------------------------------------------------------------------------------------------------} */}
-        <Paper className="container p-3 mt-2">
+        <Paper className="container center1 p-3 mt-2" elevation={4}>
             <Grid className='mt-3' container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                
-            <Stack direction="row" spacing={2}>
-      <Avatar alt="Remy Sharp" className=' mt-3 mx-4' sx={{ width: 220, height: 220 }} src="https://source.unsplash.com/random/200x200?sig=1" />
+            <Stack direction="column" spacing={2}>
+     
       <Stack className='mt-3'>
-        <h1>Name : {res.data && res.data[0].companyname}</h1>
-        <h2>company email : {res.data && res.data[0].companyemail} </h2>
-        <h2>category : {res.data && res.data[0].category} </h2>
-        <h2>products : {res.data && res.data[0].products}</h2>
-        <h3>lic no.: {res.data && res.data[0].lic}</h3>
-        <h3>factory location : {res.data && res.data[0]?.factory}</h3>
-        <h3>Number of warehouse : {res.data && res.data[0]?.noofwarehouse}</h3>
-        <h3>warehouse locations : {res.data && res.data[0]?.locations} </h3>
-        <h2></h2>
-        <br />
+       
         <Stack direction="row">
-          {res.data && res.data[0].status=="v"?<><Button className='mx-2 md-2' variant="contained" color="error">
-        Reject
-      </Button></>:<>
-          <Button className='mx-2 md-2' onClick={approve} variant="contained" color="success">
-        Approve
-      </Button>
-      <Button className='mx-2 md-2' variant="contained" color="error">
-        Reject
-      </Button>
-          </>}
+        {(res.data && res.data[0].status)==="uv"?<> <img src="https://pngimg.com/uploads/alarm_clock/alarm_clock_PNG80.png" className="h-20 w-20 clkimg" alt="" srcset="" />
+         <h1 className='clkimg1'>You will be notified soon about your request</h1></>:<><h1>hello</h1></>}
+       
        </Stack>
       </Stack>
     </Stack>
